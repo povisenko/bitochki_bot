@@ -1,8 +1,3 @@
-# Read Me First
-The following was discovered as part of building this project:
-
-* The original package name 'bot.bitochki.bitochki-bot' is invalid and this project uses 'bot.bitochki.bitochkibot' instead.
-
 # Getting Started
 
 ### Reference Documentation

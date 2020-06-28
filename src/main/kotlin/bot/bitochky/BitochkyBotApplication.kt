@@ -1,11 +1,11 @@
-package bot.bitochki.bitochkibot
+package bot.bitochky
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 
 @SpringBootApplication
-class BitochkiBotApplication
+class BitochkyBotApplication
 
 fun main(args: Array<String>) {
-	runApplication<BitochkiBotApplication>(*args)
+	runApplication<BitochkyBotApplication>(*args)
 }

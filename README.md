@@ -1,1 +1,1 @@
-# bitochki-bot
+# bitochky-bot
