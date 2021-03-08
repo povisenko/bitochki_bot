@@ -24,5 +24,10 @@ fun main() {
         bot.sendMessage(msg.chat.id, "${opts ?: msg.text}")
     }
 
+    bot.onMessage { msg ->
+        println(msg.chat.id)
+        bot.sendMessage(msg.chat.id, "fuck off")
+    }
+
     bot.start()
 }

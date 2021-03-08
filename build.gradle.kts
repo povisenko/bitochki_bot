@@ -44,7 +44,8 @@ application {
     mainClass.set("bitochok_bot.AppKt")
 }
 
-//// config JVM target to 1.8 for kotlin compilation tasks
+//from //https://github.com/junit-team/junit5-samples/tree/main/junit5-jupiter-starter-gradle-kotlin
+// config JVM target to 1.8 for kotlin compilation tasks
 //tasks.withType<KotlinCompile>().configureEach {
 //    kotlinOptions.jvmTarget = "1.8"
 //}
