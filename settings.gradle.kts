@@ -1,1 +1,0 @@
-rootProject.name = "bitochky-bot"
