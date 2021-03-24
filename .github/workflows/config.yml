@@ -7,10 +7,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Set up JDK 1.8
+
+      - name: Set up Java
         uses: actions/setup-java@v1
         with:
           java-version: 11.0.6
+
       - name: Preparing/Restoring Cache
         uses: actions/cache@v2
         with:
@@ -21,8 +23,11 @@ jobs:
           restore-keys: |
             bitochok_bot-
 
-      - name: Build with Gradle
+      - name: Build & Test
         run: ./gradlew build
+
+      - name: Deployment
+        run: echo TODO Dokcer deployment
 
       - name: Cleanup Cache
         # Remove some files from the Gradle cache, so they aren't cached by GitHub Actions.
@@ -30,6 +35,3 @@ jobs:
         run: |
           rm -f ~/.gradle/caches/modules-2/modules-2.lock
           rm -f ~/.gradle/caches/modules-2/gc.properties
-
-      - name: Deployment
-        run: echo TODO Dokcer deployment
