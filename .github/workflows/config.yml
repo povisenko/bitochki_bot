@@ -24,7 +24,7 @@ jobs:
             bitochok_bot-
 
       - name: Build & Test
-        run: ./gradlew build
+        run: ./gradlew docker
 
       - name: Deployment
         run: echo TODO Dokcer deployment
