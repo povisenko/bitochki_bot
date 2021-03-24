@@ -3,25 +3,23 @@ val ktTelegramBotVersion = "1.3.8"
 val junitVersion = "5.7.1"
 
 plugins {
-    // Apply the org.jetbrains.kotlin.jvm Plugin to add support for Kotlin.
     id("org.jetbrains.kotlin.jvm") version "1.4.20"
+    id("com.palantir.docker") version "0.26.0"
+}
 
-    // Apply the application plugin to add support for building a CLI application in Java.
-    application
+docker {
+    name = "${project.name}:${project.version}"
+    files("build/libs/bitochok_bot-fat.jar")
 }
 
 repositories {
-    // Use JCenter for resolving dependencies.
     jcenter()
-
     maven("https://jitpack.io")
 }
 
 dependencies {
-
     // Align versions of all Kotlin components
     implementation(platform("org.jetbrains.kotlin:kotlin-bom"))
-
     // Use the Kotlin JDK 8 standard library.
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 
@@ -39,13 +37,22 @@ tasks.test {
     }
 }
 
-application {
-    // Define the main class for the application.
-    mainClass.set("bitochok_bot.AppKt")
+val fatJar = task("fatJar", type = Jar::class) {
+    baseName = "${project.name}-fat"
+    manifest {
+        attributes["Implementation-Title"] = "${project.name}"
+        attributes["Implementation-Version"] = "${project.version}"
+        attributes["Main-Class"] = "bitochok_bot.AppKt"
+    }
+    from(configurations.runtimeClasspath.get().map({ if (it.isDirectory) it else zipTree(it) }))
+    with(tasks.jar.get() as CopySpec)
 }
 
-//from //https://github.com/junit-team/junit5-samples/tree/main/junit5-jupiter-starter-gradle-kotlin
-// config JVM target to 1.8 for kotlin compilation tasks
-//tasks.withType<KotlinCompile>().configureEach {
-//    kotlinOptions.jvmTarget = "1.8"
-//}
+tasks {
+    "build" {
+        dependsOn(fatJar)
+    }
+    "docker" {
+        dependsOn(build)
+    }
+}
