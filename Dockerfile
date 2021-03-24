@@ -1,4 +1,6 @@
 FROM openjdk:11-jre-slim
+LABEL org.opencontainers.image.source=https://github.com/CactusCrew/bitochok_bot
+
 WORKDIR /opt/cactuscrew/
 
 COPY bitochok_bot-fat.jar /opt/cactuscrew/bitochok_bot-fat.jar

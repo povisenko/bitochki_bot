@@ -9,6 +9,7 @@ plugins {
 
 docker {
     name = "${project.name}:${project.version}"
+//    tag("latest", "ghcr.io/cactuscrew/bitochok_bot:latest")
     files("build/libs/bitochok_bot-fat.jar")
 }
 
@@ -55,4 +56,7 @@ tasks {
     "docker" {
         dependsOn(build)
     }
+//    "dockerTag"{
+//        dependsOn(docker)
+//    }
 }
