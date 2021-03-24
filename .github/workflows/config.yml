@@ -17,9 +17,9 @@ jobs:
           path: |
             ~/.gradle/caches
             ~/.gradle/wrapper
-          key: bitochok_bot-dependencies-${{ hashFiles('pom.xml') }}
+          key: bitochok_bot-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
           restore-keys: |
-            bitochok_bot-dependencies-
+            bitochok_bot-
 
       - name: Build with Gradle
         run: ./gradlew build
