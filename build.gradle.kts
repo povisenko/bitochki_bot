@@ -2,6 +2,9 @@
 val ktTelegramBotVersion = "1.3.8"
 val junitVersion = "5.7.1"
 
+version = "1.0"
+base.archivesBaseName = "${project.name}-fat"
+
 plugins {
     id("org.jetbrains.kotlin.jvm") version "1.4.20"
     id("com.palantir.docker") version "0.26.0"
@@ -9,7 +12,7 @@ plugins {
 
 docker {
     name = "${project.name}:${project.version}"
-//    tag("latest", "ghcr.io/cactuscrew/bitochok_bot:latest")
+    tag("latest", "ghcr.io/cactuscrew/bitochok_bot:latest")
     files("build/libs/bitochok_bot-fat.jar")
 }
 
@@ -28,7 +31,7 @@ dependencies {
     testImplementation(platform("org.junit:junit-bom:$junitVersion"))
     testImplementation("org.junit.jupiter:junit-jupiter")
 
-    compile("com.github.elbekD:kt-telegram-bot:$ktTelegramBotVersion")
+    implementation("com.github.elbekD:kt-telegram-bot:$ktTelegramBotVersion")
 }
 
 tasks.test {
@@ -39,7 +42,6 @@ tasks.test {
 }
 
 val fatJar = task("fatJar", type = Jar::class) {
-    baseName = "${project.name}-fat"
     manifest {
         attributes["Implementation-Title"] = "${project.name}"
         attributes["Implementation-Version"] = "${project.version}"
@@ -50,13 +52,19 @@ val fatJar = task("fatJar", type = Jar::class) {
 }
 
 tasks {
+    "fatJar" {
+        dependsOn(test)
+    }
     "build" {
         dependsOn(fatJar)
     }
     "docker" {
         dependsOn(build)
     }
-//    "dockerTag"{
-//        dependsOn(docker)
-//    }
+    "dockerTag" {
+        dependsOn(docker)
+    }
+    "dockerPush" {
+        dependsOn(dockerTag)
+    }
 }
