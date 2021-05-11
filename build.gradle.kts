@@ -1,7 +1,3 @@
-//versions
-val ktTelegramBotVersion = "1.3.8"
-val junitVersion = "5.7.1"
-
 version = "1.0"
 
 plugins {
@@ -21,6 +17,11 @@ repositories {
     mavenCentral()
     maven("https://jitpack.io")
 }
+
+//dependecies versions
+val ktTelegramBotVersion = "1.3.8"
+val junitVersion = "5.7.1"
+
 
 dependencies {
     // Align versions of all Kotlin components
