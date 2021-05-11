@@ -34,7 +34,7 @@ jobs:
           password: ${{ secrets.CR_PAT }}
 
       - name: Deployment
-        run: ./gradlew dockerPush
+        run: ./gradlew dockerTagsPush
 
       - name: Cleanup Cache
         # Remove some files from the Gradle cache, so they aren't cached by GitHub Actions.

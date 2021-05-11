@@ -6,9 +6,9 @@ plugins {
 }
 
 docker {
-    name = "${project.name}:${project.version}"
-    tag("latest", "ghcr.io/cactuscrew/bitochok_bot:latest")
-    tag("versioned", "ghcr.io/cactuscrew/bitochok_bot:${project.version}")
+    name = "ghcr.io/cactuscrew/${project.name}:${project.version}"
+    tag("latest", "ghcr.io/cactuscrew/${project.name}:latest")
+    tag("versioned", name)
     files("build/libs/bitochok_bot-fat-${project.version}.jar")
     buildArgs(mapOf("VERSION" to "${project.version}"))
 }
