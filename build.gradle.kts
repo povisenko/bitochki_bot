@@ -3,7 +3,6 @@ val ktTelegramBotVersion = "1.3.8"
 val junitVersion = "5.7.1"
 
 version = "1.0"
-base.archivesBaseName = "${project.name}-fat"
 
 plugins {
     id("org.jetbrains.kotlin.jvm") version "1.4.20"
@@ -13,11 +12,13 @@ plugins {
 docker {
     name = "${project.name}:${project.version}"
     tag("latest", "ghcr.io/cactuscrew/bitochok_bot:latest")
-    files("build/libs/bitochok_bot-fat.jar")
+    tag("versioned", "ghcr.io/cactuscrew/bitochok_bot:${project.version}")
+    files("build/libs/bitochok_bot-fat-${project.version}.jar")
+    buildArgs(mapOf("VERSION" to "${project.version}"))
 }
 
 repositories {
-    jcenter()
+    mavenCentral()
     maven("https://jitpack.io")
 }
 
@@ -42,6 +43,8 @@ tasks.test {
 }
 
 val fatJar = task("fatJar", type = Jar::class) {
+    base.archivesBaseName = "${project.name}-fat"
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
     manifest {
         attributes["Implementation-Title"] = "${project.name}"
         attributes["Implementation-Version"] = "${project.version}"
